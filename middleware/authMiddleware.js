@@ -11,7 +11,6 @@ const requireAuth = (req,res,next) => {
   if(typeof bearerHeader !== 'undefined'){
     const bearer  = bearerHeader.split(' ');
     req.token = bearer[1];
-    console.log(req.token);
 
     if(jwt.verify(req.token,jwtSecretKey)){
       next();
@@ -19,9 +18,10 @@ const requireAuth = (req,res,next) => {
       return  res.status(401).json(baseController.returnError("Token Invalid!!!"));
     }
 
-
   }else{
+
     return  res.status(403).json(baseController.returnError("Please Sign In!!!"));
+
   }
 
 }
