@@ -2,6 +2,8 @@ const express = require('express');
 const router  = express.Router();
 const ProductController = require("../src/Controller/ProductController");
 const UserController = require("../src/Controller/UserController");
+const CartController = require("../src/Controller/CartController");
+const AuthMiddleware = require("../middleware/authMiddleware");
 const path  = require('path');
 
 router.get('/',function (req,res){
@@ -20,6 +22,11 @@ router.post('/user/signup',
 
 router.post('/user/signin',
   UserController.signIn
+);
+
+router.get('/incart',
+  AuthMiddleware.requireAuth,
+  CartController.inCart
 );
 
 module.exports  = router;

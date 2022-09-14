@@ -12,11 +12,11 @@ const signUp = async function(req,res){
 }
 
 const signIn  = async function(req,res){
-  const result = await signInService.signIn(req);
-  if(result===false){
+  const user = await signInService.signIn(req);
+  if(user===false){
     return  res.status(400).json(baseController.returnError("Can not sign in!!"));
   }else{
-    const userToken = await signInService.createToken(result);
+    const userToken = await signInService.createToken(user);
     return  res.status(200).json(baseController.returnSuccess("Sign In Success!!",{"token": userToken}));
   }
 }

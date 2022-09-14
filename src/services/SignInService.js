@@ -21,8 +21,10 @@ async function createToken(user){
   dotenv.config();
   const jwtSecretKey = process.env.JWT_SECRET_KEY;
   const data = {
-    time: Date(),
-    userId: user,
+    id: user.id,
+    username: user.userName,
+    email: user.email,
+    time: Date()
   }
   return jwt.sign(data, jwtSecretKey);
 }
