@@ -1,4 +1,4 @@
-const ProductRepository = require('../repositories/product.repository');
+const ProductRepository = require('../repositories/ProductRepositoryView');
 const showProductAll = async function(req,res){
   const productList  = await ProductRepository.findAll();
   return res.status(200).json(productList);
