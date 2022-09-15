@@ -1,14 +1,16 @@
 const express = require('express');
 const router  = express.Router();
+
 const ProductController = require("../src/Controller/ProductController");
 const UserController = require("../src/Controller/UserController");
 const CartController = require("../src/Controller/CartController");
 
-const AuthMiddleware = require("../middleware/authMiddleware");
+const authMiddleware = require("../middleware/authMiddleware");
+const cartMiddleware = require("../middleware/cartMiddleware");
 
 const signUpValidator = require("../src/validators/SignUpValidator");
 const path  = require('path');
-const {body} = require("express-validator");
+
 
 router.get('/',function (req,res){
   res.send('hello Main');
@@ -20,11 +22,8 @@ router.get('/product/:id',
   ProductController.showProductId
 );
 
-router.post('/user/signup',[
-  body("email").isEmail(),
-  body("username").notEmpty().isLength({min:5,max:10}),
-  body("password").isLength({min:5})
-],
+router.post('/user/signup',
+  signUpValidator.signUpValidateCnf,
   signUpValidator.signUpValidate,
   UserController.signUp
 );
@@ -34,8 +33,21 @@ router.post('/user/signin',
 );
 
 router.get('/incart',
-  AuthMiddleware.requireAuth,
+  authMiddleware.requireAuth,
+  cartMiddleware.defCart,
   CartController.inCart
+);
+
+router.post('/incart/add',
+  authMiddleware.requireAuth,
+  cartMiddleware.defCart,
+  CartController.addCart
+);
+
+router.post('/incart/remove',
+  authMiddleware.requireAuth,
+  cartMiddleware.defCart,
+  CartController.removeCart
 );
 
 module.exports  = router;

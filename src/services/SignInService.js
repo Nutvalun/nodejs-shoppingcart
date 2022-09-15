@@ -1,4 +1,4 @@
-const userRepo = require('../repositories/UserRepositoryView');
+const userRepo = require('../repositories/view/UserRepositoryView');
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
@@ -7,13 +7,13 @@ async function signIn(req){
   const jsonBody  = req.body;
   const chkUser = await userRepo.findByUsername(jsonBody.username);
   if(chkUser.length===0){
-    return false;
+    throw ("Invalid User!!!");
   }
   const chkPwd = await bcrypt.compare(jsonBody.password, chkUser[0].password);
   if(chkPwd){
     return chkUser[0];
   }else{
-    return false;
+    throw ("Invalid Password!!!");
   }
 
 }

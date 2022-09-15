@@ -1,4 +1,4 @@
-const models = require("../../models");
+const models = require("../../../models");
 
 async function findByUsername(username) {
   return await models.User.findAll(

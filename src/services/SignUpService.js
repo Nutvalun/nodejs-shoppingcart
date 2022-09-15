@@ -1,5 +1,5 @@
-const userExec = require('../repositories/UserRepositoryExec');
-const userRepo = require('../repositories/UserRepositoryView');
+const userExec = require('../repositories/exec/UserRepositoryExec');
+const userRepo = require('../repositories/view/UserRepositoryView');
 const bcrypt = require('bcrypt');
 
 async function create(req){
@@ -9,13 +9,13 @@ async function create(req){
 
   const chkUser = await userRepo.findByUsername(jsonBody.username);
   if(chkUser.length>0){
-    return false;
+    throw ("Duplicate User!!!");
   }
 
   jsonBody.password = await bcrypt.hash(password, salt);
   const result = userExec.create(jsonBody);
   if(!result){
-    return false;
+    throw ("Something is error!!!");
   }else{
     return result;
   }
