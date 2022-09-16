@@ -50,4 +50,10 @@ router.post('/incart/remove',
   CartController.removeCart
 );
 
+router.post('/incart/checkout',
+  authMiddleware.requireAuth,
+  cartMiddleware.defCart,
+  CartController.checkOut
+);
+
 module.exports  = router;

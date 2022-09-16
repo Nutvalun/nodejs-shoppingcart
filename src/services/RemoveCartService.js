@@ -7,9 +7,7 @@ async function remove(req){
     throw ("Not Exist product_id in this cart!!!");
   }
   req.session.sessInCart = req.session.sessInCart.filter(data => data.product_id !== jsonBody.product_id);
-  console.log(req.session.sessInCart);
   return true;
-
 }
 
 module.exports = {
