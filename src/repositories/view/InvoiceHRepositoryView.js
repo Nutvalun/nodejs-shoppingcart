@@ -1,7 +1,7 @@
 const models = require("../../../models");
 
 async function findAll() {
-  return await models.InvoiceH.findAll(
+  return await models.InvoiceHs.findAll(
     {
       attributes: ['id', 'userId','invoiceNo','unitPrice']
     }
@@ -9,7 +9,7 @@ async function findAll() {
 }
 
 async function findById(id) {
-  return await models.InvoiceH.findAll(
+  return await models.InvoiceHs.findAll(
     {
       where:{
         'id': id
@@ -19,7 +19,7 @@ async function findById(id) {
 }
 
 async function findByUserId(id) {
-  return await models.InvoiceH.findAll(
+  return await models.InvoiceHs.findAll(
     {
       where:{
         'userId': id
