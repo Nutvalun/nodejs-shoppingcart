@@ -4,6 +4,7 @@ const router  = express.Router();
 const ProductController = require("../src/Controller/ProductController");
 const UserController = require("../src/Controller/UserController");
 const CartController = require("../src/Controller/CartController");
+const InvoiceController = require("../src/Controller/InvoiceController");
 
 const authMiddleware = require("../middleware/authMiddleware");
 const cartMiddleware = require("../middleware/cartMiddleware");
@@ -56,4 +57,13 @@ router.post('/incart/checkout',
   CartController.checkOut
 );
 
+router.get('/invoice/',
+  authMiddleware.requireAuth,
+  InvoiceController.showInvoiceAll
+);
+
+router.get('/invoice/:id',
+  authMiddleware.requireAuth,
+  InvoiceController.showInvoiceDtl
+);
 module.exports  = router;

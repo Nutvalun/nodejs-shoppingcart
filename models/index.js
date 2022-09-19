@@ -34,4 +34,29 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+db.Products  =  require("./product")(sequelize, Sequelize);
+db.InvoiceDtls  =  require("./invoicedtl")(sequelize, Sequelize);
+db.InvoiceHs  =  require("./invoiceh")(sequelize, Sequelize);
+db.User  =  require("./user")(sequelize, Sequelize);
+
+// db.InvoiceDtls.hasOne(db.InvoiceHs,{as: "InvoiceHs"});
+// db.InvoiceHs.belongsTo(db.InvoiceDtls,{
+//   foreignKey: "invoiceH_id",
+//   as: "InvoiceDtls"
+// });
+db.User.hasMany(db.InvoiceHs,{as: "InvoiceHs"});
+db.InvoiceHs.belongsTo(db.User,{
+  foreignKey: "userId",
+  as: "User"
+});
+
+
+db.Products.hasMany(db.InvoiceDtls,{as: "InvoiceDtls"});
+db.InvoiceDtls.belongsTo(db.Products,{
+  foreignKey: "product_id",
+  as: "Products"
+});
+
+
+
 module.exports = db;

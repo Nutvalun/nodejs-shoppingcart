@@ -3,7 +3,7 @@ const models = require("../../../models");
 async function findAll() {
   return await models.InvoiceHs.findAll(
     {
-      attributes: ['id', 'userId','invoiceNo','unitPrice']
+      attributes: ['id', 'userId',['invoiceNo','invoiceNo'],['totalPrice','totalPrice']]
     }
   );
 }
@@ -11,9 +11,17 @@ async function findAll() {
 async function findById(id) {
   return await models.InvoiceHs.findAll(
     {
+      attributes: ['id', 'userId',['invoiceNo','invoiceNo'],['totalPrice','totalPrice']],
       where:{
         'id': id
-      }
+      },
+      include:[
+        {
+          model: models.User,
+          as : 'User',
+          attributes: ['userName','email'],
+        }
+      ]
     }
   );
 }
@@ -23,7 +31,14 @@ async function findByUserId(id) {
     {
       where:{
         'userId': id
-      }
+      },
+      include:[
+        {
+          model: models.User,
+          as : 'User',
+          attributes: ['userName','email'],
+        }
+      ]
     }
   );
 }

@@ -22,3 +22,11 @@ async function add(req){
 module.exports = {
   add,
 }
+
+//
+// {
+//   "code": 200/500/400
+//   "status":"success/error",
+//   "message":"user already exists",
+//   "data":[]
+// }
